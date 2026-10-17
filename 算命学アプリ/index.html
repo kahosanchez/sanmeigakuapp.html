@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="宿命算出"><meta name="theme-color" content="#b08d3c">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>宿命算出｜算命学・数秘</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f7f6f3;--cd:#fff;--tx:#3b3b40;--mu:#9a9aa0;--ac:#b08d3c;--bd:#e7e5df;--ok:#8a7335;--ng:#b4564a;--tcb:#f6efdc;--tcc:#b08d3c;--ij:#c0562f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#18181b;--cd:#222226;--tx:#ececee;--mu:#9a9aa3;--ac:#d4b25a;--bd:#34343a;--ok:#d4b25a;--ng:#e8938a;--tcb:#33301f;--tcc:#d4b25a;--ij:#ef8a63}}
+:root[data-theme="dark"]{--bg:#18181b;--cd:#222226;--tx:#ececee;--mu:#9a9aa3;--ac:#d4b25a;--bd:#34343a;--ok:#d4b25a;--ng:#e8938a;--tcb:#33301f;--tcc:#d4b25a;--ij:#ef8a63}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0 auto;background:var(--bg);color:var(--tx);font:12px/1.5 -apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;padding:10px;max-width:760px}
+h1{font-size:17px;margin:2px 0}h2{font-size:11px;margin:0 0 4px;color:var(--ac)}h3{font-size:13px;margin:0 0 6px}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:10px;padding:9px;margin-bottom:9px}
+.row{display:flex;gap:5px;margin-bottom:5px;align-items:center}.row b{width:14px;color:var(--ac)}
+input,select{min-width:0;padding:6px;border:1px solid var(--bd);border-radius:7px;background:var(--bg);color:var(--tx);font:inherit}
+button{width:100%;padding:9px;border:0;border-radius:9px;background:var(--ac);color:#fff;font:600 14px inherit;cursor:pointer}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+table{width:100%;border-collapse:collapse;text-align:center}td,th{padding:1px 2px}
+.big{font-size:16px;font-weight:700}.zk div{font-size:10px;color:var(--mu)}.zk .on{color:var(--ac);font-weight:700}
+.yo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--bd)}
+.yo b{border:1px solid var(--bd);padding:4px 0;text-align:center;font-size:9.5px;font-weight:500;min-height:32px;line-height:1.3}.yo small{display:block;color:var(--mu);font-size:8px}
+.ph{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));text-align:center;font-size:15px;font-weight:700}
+.ph i{height:7px;border:1px solid var(--mu);border-top:0;margin:0 2px}.ph em{font-style:normal;font-size:9px;min-height:14px}
+.t{display:inline-block;padding:0 4px;border-radius:4px;font-size:9px;margin:1px 1px 1px 0;color:var(--ok);border:1px solid currentColor;white-space:nowrap;cursor:pointer}.t.n{color:var(--ng)}
+.chip{display:inline-block;padding:0 7px;border-radius:99px;border:1px solid var(--bd);margin:1px 2px 1px 0;font-size:10px;cursor:pointer}
+.un{font-size:9.5px;margin-bottom:6px}.t.x{color:var(--tx)}.un .t{border:0;padding:0;display:block;margin:0;font-size:9.5px}.un th{font-size:9px;color:var(--mu);font-weight:400}.un td{border-bottom:1px dashed var(--bd);text-align:left;vertical-align:top;padding:2px 1px}.un tr.tc td{background:var(--tcb)}
+.note{color:var(--mu);font-size:9.5px}.score{font-size:32px;font-weight:800;color:var(--ac);text-align:center;line-height:1}
+.mx{font-size:10px}.mx td,.mx th{border:1px solid var(--bd);padding:3px 1px;height:36px}
+.exp{margin-top:6px;padding:6px 8px;border-radius:8px;background:var(--bg);border:1px solid var(--bd);font-size:11px}
+details summary{cursor:pointer;color:var(--ac);font-weight:600;margin:5px 0;font-size:11px}
+</style></head><body>
+<h1>宿命算出</h1>
+<div class="note" style="margin-bottom:10px">算命学（陰占・陽占・位相法・大運・年運・宇宙盤）＋数秘術。2人入力で相性（相性表・宇宙盤重ね）も算出。</div>
+<div class="card">
+<div class="row"><b>A</b><input id="na" placeholder="名前" style="width:28%"><input id="da" inputmode="numeric" placeholder="生年月日 例 1999/5/28" style="flex:1"><select id="ga"><option>女</option><option>男</option></select></div>
+<div class="row"><b>B</b><input id="nb" placeholder="名前" style="width:28%"><input id="db" inputmode="numeric" placeholder="生年月日 例 2000/3/12" style="flex:1"><select id="gb"><option>男</option><option>女</option></select></div>
+<button id="go">算出する</button>
+<div class="note" style="margin-top:6px">Bを空欄にすると個人鑑定。性別は大運の順逆に使います。</div>
+</div>
+<div id="out"></div>
+<div class="note">※節入りは天文計算（日単位）。蔵干は節入りからの日数で決定。格法・局方・宿命天中殺は簡易判定で、流派により異なります。時間は未使用。</div>
+<script>
+const S="甲乙丙丁戊己庚辛壬癸",B="子丑寅卯辰巳午未申酉戌亥",EL="木火土金水",EC=["#6fb58a","#e58f8c","#cfa95f","#a9b1bd","#7aa7d6"],BE=[4,2,0,0,2,1,1,2,3,3,2,4];
+const mod=(a,n)=>((a%n)+n)%n,esc=s=>s.replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
+const lon=t=>{const T=(t/864e5+2440587.5-2451545)/36525,r=Math.PI/180,L=280.46646+36000.76983*T,M=(357.52911+35999.05029*T)*r,
+C=(1.914602-.004817*T)*Math.sin(M)+.019993*Math.sin(2*M)+.000289*Math.sin(3*M);return mod(L+C,360)};
+const dEnd=(y,m,d)=>Date.UTC(y,m-1,d,14,59),mI=l=>Math.floor(mod(l-315,360)/30);
+const Z=["癸","癸9辛3己18","戊7丙7甲16","乙","乙9癸3戊18","戊5庚9丙16","己19丁11","丁9乙3己18","戊7壬3庚20","辛","辛9丁3戊18","戊7甲5壬18"];
+const zk=b=>{const r=[];Z[b].replace(/(.)(\d*)/g,(_,c,n)=>r.push({s:S.indexOf(c),n:+n}));return r};
+const TS=[["貫索","石門"],["鳳閣","調舒"],["禄存","司禄"],["車騎","牽牛"],["龍高","玉堂"]];
+const star=(a,b)=>TS[mod((b>>1)-(a>>1),5)][a%2==b%2?0:1]+"星";
+const LG=[11,6,2,9,2,9,5,0,8,3],JN="天報,天印,天貴,天恍,天南,天禄,天将,天堂,天胡,天極,天庫,天馳".split(",");
+const jun=(s,b)=>JN[mod(2+(s%2==0?b-LG[s]:LG[s]-b),12)]+"星";
+const n60=(s,b)=>{for(let i=0;i<60;i++)if(i%10==s&&i%12==b)return i;return 0};
+const TCB=[[10,11],[8,9],[6,7],[4,5],[2,3],[0,1]];
+const HE=[[0,1],[2,11],[3,10],[4,9],[5,8],[6,7]];
+const HAIM={"2,5":"東方害","8,11":"西方害","3,4":"中央害","9,10":"中央害","0,7":"南北害","1,6":"南北害"};
+const KEIM={"2,5":"生貴刑","5,8":"生貴刑","0,3":"旺気刑","1,10":"刑","7,10":"刑"},HAP=["0,9","1,4","2,11","3,6","7,10"];
+const SAN=[[8,0,4,"水"],[11,3,7,"木"],[2,6,10,"火"],[5,9,1,"金"]],HOU=[[2,3,4,"木"],[5,6,7,"火"],[8,9,10,"金"],[11,0,1,"水"]];
+function pr(a,b){const k=a<b?a+","+b:b+","+a,o=[];
+if(HE.some(p=>p[0]==a&&p[1]==b||p[0]==b&&p[1]==a))o.push(["支合","p"]);
+if(mod(a-b,12)==6)o.push(["冲","n"]);
+if(KEIM[k])o.push([KEIM[k],"n"]);else if(a==b&&[4,6,9,11].includes(a))o.push(["自刑","n"]);if(HAIM[k])o.push([HAIM[k],"n"]);
+if(HAP.includes(k))o.push(["破","n"]);
+if(a!=b){for(const g of SAN){const i=g.indexOf(a),j=g.indexOf(b);if(i>=0&&j>=0&&i<3&&j<3)o.push(["半会","p"])}
+}return o}
+function rn(x,y){const o=[],cx=mod(x.b-y.b,12)==6,sk=[2,3].includes(mod((y.s>>1)-(x.s>>1),5)),id=x.s==y.s&&x.b==y.b;
+if(Math.abs(x.s-y.s)==5&&x.l&&y.l&&(x.l=="日"||y.l=="日"))o.push(["干合","p"]);
+if(id)o.push(["律音","p"]);else if(x.b==y.b)o.push(["比和","x"]);
+if(x.s==y.s&&cx)o.push(["納音","n"]);
+pr(x.b,y.b).forEach(r=>{if(r[0]=="冲"){if(x.s==y.s)return;if(sk)r=["天剋地冲","n"]}if(id&&r[0]=="自刑")return;o.push(r)});return o}
+const exk=k=>k.includes("害")?"害":k.includes("刑")?"刑":k.split("（")[0];
+const tg=a=>a.map(([k,c])=>`<span class="t ${c}" data-ex="${exk(k)}">${k}</span>`).join("");
+const uniq=a=>[...new Map(a).entries()];
+const red=n=>{while(n>9&&n!=11&&n!=22&&n!=33)n=[...String(n)].reduce((a,c)=>a+ +c,0);return n};
+const IJ={};"甲戌,乙亥,戊戌,庚子,辛亥,丁巳".split(",").forEach(k=>IJ[k]="通常異常干支");"辛巳,壬午,丙戌,丁亥,戊子,癸巳,己亥".split(",").forEach(k=>IJ[k]="暗合異常干支");
+const SG={};[["不族の業","甲子甲辰"],["祇王の業","乙巳乙酉"],["不信の業","丙辰丙戌"],["徳攻の業","丁丑丁未"],["参籠の業","戊辰戊戌"],["倒柱の業","己巳己酉"],["傷体の業","庚辰庚戌"],["一人行の業","辛丑辛未"],["不子の業","壬子壬辰"],["倒異の業","癸酉癸亥"]].forEach(([n,k])=>{SG[k.slice(0,2)]=n;SG[k.slice(2)]=n});
+const JU=[[1,4,"推逆局","円推局"],[1,3,"生殺局","殺局"],[0,3,"井乱局","乱命局"],[0,2,"破財局","曲財局"],[2,4,"地財局","叉財局"]];
+const gi=x=>TS.findIndex(r=>r.some(n=>x.startsWith(n)));
+const chip=(t,k,c)=>`<span class="chip" data-ex="${k}"${c?` style="${c}"`:""}>${t}</span>`;
+const tkh=p=>{const a=[];p.R.forEach(x=>{const k=S[x.s]+B[x.b];
+if(IJ[k])a.push(chip(`異常干支 ${x.l}${k}（${IJ[k]}）`,EX[k]?k:"異常干支","color:var(--ij);border-color:var(--ij)"));
+if(SG[k])a.push(chip(`三業干支 ${x.l}${k}｜${SG[k]}`,SG[k]))});
+return`<div>${a.length?a.join(""):'<span class="note">異常干支・三業干支なし</span>'}</div><div>${chip("局法","局法")}${p.kyoku.length?p.kyoku.map(o=>chip(o.t,o.k,"color:var(--"+(o.w=="n"?"ng":"ok")+")")).join(""):'<span class="note">局法なし</span>'}</div>`};
+function calc(y,m,d,g,nm){
+const t=dEnd(y,m,d),l=lon(t),mi=mI(l),Y=m<=2&&l<315?y-1:y,ys=mod(Y-4,10),yb=mod(Y-4,12),
+ms=mod(mod(ys,5)*2+2+mi,10),mb=mod(mi+2,12),
+di=mod(54+Math.round((Date.UTC(y,m-1,d)-Date.UTC(2000,0,1))/864e5),60);
+let n=1;while(mI(lon(t-864e5*n))==mi)n++;
+const P=[{l:"年",s:ys,b:yb},{l:"月",s:ms,b:mb},{l:"日",s:di%10,b:di%12}];
+P.forEach(p=>{p.z=zk(p.b);const L=p.z.length;let k=L-1;if(L>1){let c=0;for(let i=0;i<L;i++){c+=p.z[i].n;if(n<=c){k=i;break}}}p.sel=k;p.h=p.z[k].s});
+const ds=P[2].s,tcb=TCB[di/10|0],R=[P[2],P[1],P[0]];
+const st={頭:star(ds,ys),腹:star(ds,ms),胸:star(ds,P[1].h),右手:star(ds,P[2].h),左手:star(ds,P[0].h)},sv=P.map(p=>jun(ds,p.b));
+const bn=P.map(p=>p.z[p.z.length-1].s),rl=[ys,ms,...bn].map(o=>mod((o>>1)-(ds>>1),5)),sup=rl.filter(r=>r==0||r==4).length,opp=rl.filter(r=>r==3).length;
+const hu=Math.abs(ds-ms)==5&&EL[bn[1]>>1]=="土金水木火"[Math.min(ds,ms)%5];
+const kaku=hu?"化格":sup>=4&&opp==0?"従旺格":sup<=1?"従革格":"普通格";
+const ye=tcb.includes(yb),mo=tcb.includes(mb),sh=ye&&mo?"生年・生月中殺":ye?"生年中殺":mo?"生月中殺":"宿命天中殺なし";
+const bs=P.map(p=>p.b),kyo=[];
+SAN.forEach(g=>g.slice(0,3).every(b=>bs.includes(b))&&kyo.push(["三合会局（"+g[3]+"局）","p"]));
+HOU.forEach(g=>g.slice(0,3).every(b=>bs.includes(b))&&kyo.push(["方三位（"+g[3]+"）","p"]));
+const rel=(s,b)=>uniq(R.flatMap(p=>rn({s,b},p)));
+const mk=(yr,age,i)=>{const s=i%10,b=i%12;return{yr,age,s,b,gz:S[s]+B[b],st:star(ds,s),jn:jun(ds,b),rl:R.map(p=>rn({s,b},p)),tc:tcb.includes(b)}};
+const fwd=(ys%2==0)==(g=="男");let days;if(fwd){let k=1;while(mI(lon(t+864e5*k))==mi)k++;days=k}else days=n-1;
+const ri=Math.max(1,Math.round(days/3)),m60=n60(ms,mb),cy=new Date().getFullYear();
+const dai=[...Array(12)].map((_,k)=>mk(y+ri+10*k,ri+10*k,mod(m60+(fwd?k+1:-k-1),60)));
+const nen=[...Array(12)].map((_,k)=>{const Yr=cy-1+k;return mk(Yr,Yr-y,mod(Yr-4,60))});
+const five=[st.頭,st.胸,st.腹,st.右手,st.左手],V=[gi(st.頭),gi(st.胸),gi(st.腹)],H=[gi(st.右手),gi(st.胸),gi(st.左手)],cn=[0,0,0,0,0];five.forEach(x=>cn[gi(x)]++);
+const mx=Math.max(...cn),mg=cn.indexOf(mx),same=five.every(x=>x==five[0]),kyoku=[],ad=(t,w,k)=>{if(!kyoku.some(o=>o.t==t))kyoku.push({t,k:k||t,w})};
+if(same)ad("鳳蘭局","p");
+if(mx==5){const n5=["劫局","食局","財局","官局","印局"][mg];ad(n5+(same?"":"（準鳳蘭局）"),"p",n5);if(same)ad(["劫法局","天華局","連財局","法官局","命龍局"][mg],"p")}
+else if(mx==4)ad("準八相局（"+EL[mg]+"性4）","p","準八相局");else if(mx==3)ad("準々八相局（"+EL[mg]+"性3）","p","準々八相局");
+[V,H].forEach(a=>{if(a.every(x=>x==a[0]))ad(["芳順局","八寿局","三麗局","相法局","玄流局"][a[0]],"p")});
+const adj=[[V[0],V[1],0],[V[2],V[1],0],[H[0],H[1],1],[H[2],H[1],1]];
+JU.forEach(([a,b,v,h])=>[0,1].forEach(d=>{if(adj.some(([x,y,dd])=>dd==d&&(x==a&&y==b||x==b&&y==a)))ad(d?h:v,"n")}));
+const now=new Date(),cm=now.getMonth()+1,
+tuki=[...Array(12)].map((_,k)=>{let yy=cy,mm=cm+k;while(mm>12){mm-=12;yy++}const l2=lon(dEnd(yy,mm,15)),mi2=mI(l2),Y2=mm<=2&&l2<315?yy-1:yy,ys2=mod(Y2-4,10),r=mk(yy+"/"+mm+"月",0,n60(mod(mod(ys2,5)*2+2+mi2,10),mod(mi2+2,12)));r.sub="";return r}),
+hi=[...Array(14)].map((_,k)=>{const dt=new Date(now.getFullYear(),now.getMonth(),now.getDate()+k),dd=Math.round((Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate())-Date.UTC(2000,0,1))/864e5),r=mk((dt.getMonth()+1)+"/"+dt.getDate(),0,mod(54+dd,60));r.sub="日月火水木金土"[dt.getDay()]+"曜";return r});
+const cnt=[0,0,0,0,0];[ys,ms,ds,...bn].forEach(s=>cnt[s>>1]++);
+const num={lp:red(red(m)+red(d)+red(y)),bd:red(d),py:red(red(m)+red(d)+red(cy))};
+return{y,m,d,g,nm,P,R,ds,tcb,st,sv,kaku,sh,kyo,kyoku,dai,nen,tuki,hi,ri,fwd,cnt,num,n}}
+const NK={1:"独立・開拓",2:"協調・受容",3:"表現・創造",4:"安定・努力",5:"自由・変化",6:"愛情・責任",7:"探究・内省",8:"達成・豊かさ",9:"完成・奉仕",11:"直感・啓示",22:"大建設・実現",33:"無償の愛・導き"};
+const cell=(a,l)=>`<b>${a}${l?`<small>${l}</small>`:""}</b>`;
+function cosmos(L){const pt=(i,r)=>{const a=(i+.5)*Math.PI/30;return[210+r*Math.sin(a),210-r*Math.cos(a)]};
+const Q=[["理論","知略","創造力","研究","知識",135,135],["守備力","堅実","持続力","保守的","奉仕",285,135],["攻撃力","開拓","事業","生産性","統率力",135,285],["伝達力","革新性","想像力","自由","精神",285,285]];
+let s=`<svg viewBox="0 0 420 420" text-anchor="middle" style="width:100%;max-width:230px;display:block;margin:auto"><circle cx="210" cy="210" r="155" fill="none" stroke="var(--tx)" stroke-width=".8"/><path d="M210 55V365M55 210H365" stroke="var(--mu)" stroke-dasharray="2 3" stroke-width=".7"/>`;
+Q.forEach(q=>q.slice(0,5).forEach((t,i)=>s+=`<text x="${q[5]}" y="${q[6]-24+i*14}" font-size="11" fill="var(--tx)" opacity=".7" letter-spacing="3">${t}</text>`));
+for(let i=0;i<60;i++){const o=L.find(l=>l.ids.includes(i));s+=`<g transform="translate(210 210) rotate(${(i+.5)*6})" fill="${o?o.c:"var(--mu)"}"${o?' font-weight="700"':""}><text y="-193" font-size="6.5">${i+1}</text><text y="-181" font-size="9">${S[i%10]}</text><text y="-170" font-size="9">${B[i%12]}</text></g>`}
+L.forEach(o=>{if(o.ids.length>1)s+=`<polygon points="${o.ids.map(i=>pt(i,155).join(",")).join(" ")}" fill="${o.c}" fill-opacity=".12" stroke="${o.c}" stroke-width="1.4"/>`;s+=o.ids.map(i=>{const[x,y]=pt(i,155);return`<circle cx="${x}" cy="${y}" r="3.2" fill="${o.c}"/>`}).join("")});
+return s+"</svg>"}
+const tbl=L=>`<table class="un"><tr><th></th><th></th><th></th><th>日</th><th>月</th><th>年</th></tr>${L.map(r=>`<tr class="${r.tc?"tc":""}"><td>${r.tc?"▶":""}${r.yr}<br><span class="note">${r.sub!==undefined?r.sub:r.age+"歳"}</span></td><td><b style="color:${IJ[r.gz]?"var(--ij)":"inherit"}">${S[r.s]}${B[r.b]}</b></td><td>${r.st}<br>${r.jn}</td>${r.rl.map(c=>`<td>${tg(c)}</td>`).join("")}</tr>`).join("")}</table>`;
+function pers(p,lab,open){
+const R=p.R,pl=[[R[0],R[1]],[R[1],R[2]],[R[0],R[2]]].map(([a,b])=>tg(uniq(rn(a,b)))),ij=x=>IJ[S[x.s]+B[x.b]]?"var(--ij)":"inherit";
+const yin=`<table><tr>${R.map(x=>`<td class="note">(${n60(x.s,x.b)+1})</td>`).join("")}</tr><tr>${R.map(x=>`<td class="big" style="color:${ij(x)}">${S[x.s]}</td>`).join("")}</tr><tr>${R.map(x=>`<td class="big" style="color:${ij(x)}">${B[x.b]}</td>`).join("")}</tr><tr>${R.map(x=>`<td class="zk">${x.z.map((z,i)=>`<div class="${i==x.sel?"on":""}">${i==x.sel?"›":""}${S[z.s]}</div>`).join("")}</td>`).join("")}</tr></table>`;
+const yo=`<div class="yo"><b></b>${cell(p.st.頭,"頭")}${cell(p.sv[0])}${cell(p.st.右手,"右手")}${cell(p.st.胸,"胸")}${cell(p.st.左手,"左手")}${cell(p.sv[2])}${cell(p.st.腹,"腹")}${cell(p.sv[1])}</div>`;
+const ph=`<div class="ph"><span style="grid-column:1/3">${B[R[0].b]}</span><span style="grid-column:3/5">${B[R[1].b]}</span><span style="grid-column:5/7">${B[R[2].b]}</span><i style="grid-column:2/4"></i><i style="grid-column:4/6"></i><em style="grid-column:2/4">${pl[0]}</em><em style="grid-column:4/6">${pl[1]}</em><i style="grid-column:2/6"></i><em style="grid-column:2/6">${pl[2]}</em></div>`;
+const tcs=p.tcb.map(b=>B[b]).join("")+"天中殺";
+return`<div class="card"><h3>【${lab}宿命】${p.y}年${p.m}月${p.d}日　${p.g}性</h3>
+<div class="g3"><div><h2>陰占</h2>${yin}</div><div><h2>陽占</h2>${yo}</div><div><h2>位相法</h2>${ph}</div></div>
+<details ${open?"open":""}><summary>後天運（大運・年運・月運・日運）</summary><div><div><h2>大運（立運${p.ri}歳・${p.fwd?"順行":"逆行"}）</h2>${tbl(p.dai)}</div><div><h2>年運（▶=天中殺／紫=異常干支）</h2>${tbl(p.nen)}</div></div><div style="margin-top:6px"><div><h2>月運（今月から12か月・節月）</h2>${tbl(p.tuki)}</div><div><h2>日運（今日から14日）</h2>${tbl(p.hi)}</div></div></details>
+<div style="margin-top:6px"><h2>宇宙盤</h2>${cosmos([{ids:p.R.map(x=>n60(x.s,x.b)),c:"#b08d3c"}])}</div>
+<div class="g2" style="margin-top:6px"><div><h2>格法・天中殺（タップで説明）</h2><span class="chip" data-ex="${p.kaku}" style="color:var(--ac);border-color:var(--ac)">${p.kaku}</span><span class="chip" data-ex="天中殺">${tcs}</span><span class="chip" data-ex="宿命天中殺">${p.sh}</span></div>
+<div><h2>数秘</h2><span class="chip">LP ${p.num.lp}｜${NK[p.num.lp]}</span><span class="chip">誕生日数 ${p.num.bd}</span><span class="chip">今年の数 ${p.num.py}</span><div class="note">五行 ${p.cnt.map((c,i)=>EL[i]+c).join(" ")}</div></div></div>
+<div style="margin-top:6px"><h2>特殊干支・局法（タップで説明）</h2>${tkh(p)}</div>
+<div class="exp" hidden></div></div>`}
+function compat(a,b){
+const W={干合:6,支合:8,半会:4,大半会:3,方三位:3,冲:-7,天剋地冲:-9,害:-5,東方害:-5,西方害:-5,中央害:-5,南北害:-5,刑:-5,生貴刑:-5,旺気刑:-5,自刑:-4,破:-3,律音:4,納音:-2};
+let sc=50;const rows=b.R.map(y=>a.R.map(x=>{const r=uniq(rn(y,x));r.forEach(([k])=>sc+=(W[k]||0)*(x.l=="日"&&y.l=="日"?2:1));return r}));
+const grp=n=>[[1,5,7],[2,4,8],[3,6,9]].findIndex(r=>r.includes({11:2,22:4,33:6}[n]||n)),same=grp(a.num.lp)==grp(b.num.lp);if(same)sc+=6;sc=Math.max(15,Math.min(97,sc));
+const pn=red(a.num.lp+b.num.lp),ab=star(a.ds,b.ds),ba=star(b.ds,a.ds),gz=x=>S[x.s]+B[x.b];
+return`<div class="card"><h3>【相性】</h3><div class="score">${sc}<span style="font-size:14px">点</span></div><div class="note" style="text-align:center;margin-bottom:8px">位相法・数秘による目安値</div>
+<div><div><h2>宇宙盤（重ね）</h2>${cosmos([{ids:a.R.map(x=>n60(x.s,x.b)),c:"#b08d3c"},{ids:b.R.map(x=>n60(x.s,x.b)),c:"#6b7280"}])}<div class="note"><span style="color:#b08d3c">■A</span> <span style="color:#6b7280">■B</span></div></div>
+<div><h2>相性表（縦=B／横=A）</h2><table class="mx"><tr><th></th>${a.R.map(x=>`<th>${x.l}<br>${gz(x)}</th>`).join("")}</tr>${rows.map((r,i)=>`<tr><th>${b.R[i].l}<br>${gz(b.R[i])}</th>${r.map(c=>`<td>${tg(c)}</td>`).join("")}</tr>`).join("")}</table></div></div>
+<h2 style="margin-top:10px">日干の関係</h2><div>AからBは <b>${ab}</b>／BからAは <b>${ba}</b></div>
+<h2 style="margin-top:8px">数秘</h2><span class="chip">A:${a.num.lp}</span><span class="chip">B:${b.num.lp}</span><span class="chip">二人の数 ${pn}｜${NK[pn]}</span><span class="chip">${same?"同グループ（共鳴）":"異グループ（補い合う）"}</span><div class="exp" hidden></div></div>`}
+const EX={
+普通格:"五行のバランスが取れた標準的な命式。極端な偏りがなく、環境や運勢の流れを素直に受けやすい形（簡易判定）。",
+従旺格:"日干と同じ五行・日干を生む五行が命式の大半を占め、剋す五行がない形。自我が強く一本気。流れに乗ると大きく伸びる反面、融通は利きにくい。",
+従革格:"日干を助ける五行がほとんどなく、財・官・食傷など周囲の五行に従う形。環境への順応力が高く、相手や立場に合わせて力を発揮する。",
+化格:"日干が月干と干合し、月支の五行が化する五行と一致する形。本来の性質が大きく変わり、人生の転機が多いとされる。",
+局方:"局＝三合会局、方＝方三位。命式内に同じ五行の支が3つ揃うと、その五行のエネルギーが一気に強まる。",
+三合会局:"申子辰(水)・亥卯未(木)・寅午戌(火)・巳酉丑(金)の3支が揃う形。団結力が強く、その五行の気が大きく増す。",
+方三位:"寅卯辰(木)・巳午未(火)・申酉戌(金)・亥子丑(水)の3支が揃う形。同じ方位の気が集まり、その五行が強調される。",
+天中殺:"日柱の干支から決まる、巡ってこない2つの支。この支の年・月・日は流れが変わりやすく、現実面で空回りしやすい反面、精神面は育ちやすいとされる。",
+宿命天中殺:"生まれ年の支（生年中殺）や生まれ月の支（生月中殺）が自分の天中殺にあたること。生年は祖先・初年期、生月は親・社会との縁に影響が出るとされる。",
+干合:"干同士が結びつく関係（甲己・乙庚・丙辛・丁壬・戊癸）。強く引き合い、協力や変化が生まれる。",
+支合:"支同士が結びつく関係（子丑・寅亥・卯戌・辰酉・巳申・午未）。縁が深まり、安定や親密さを生む。",
+半会:"三合のうち2支が揃う関係。足りない1支を求めて、動きや発展を生む。",
+大半会:"三合のうち始まりの支と終わりの支（生地と墓地）が揃う関係。大きな流れの始点と終点がつながる。",
+冲:"向かい合う支がぶつかる関係（子午・丑未・寅申・卯酉・辰戌・巳亥）。変化・衝突・転機を生む。",
+天剋地冲:"干が剋し合い、支も冲する最も強い衝突。大きな転換や別れ・独立などが起こりやすい。",
+害:"支同士が足を引っ張り合う関係。寅巳=東方害、申亥=西方害、卯辰・酉戌=中央害、子未・丑午=南北害。",
+刑:"支同士が摩擦し、試練や気苦労を生む関係。寅巳申=生貴刑、子卯=旺気刑、同支=自刑。",
+破:"物事が壊れやすい関係。計画の崩れや縁の切れ目として出やすい。",
+律音:"干支が同じ関係。似た者同士で共鳴しやすく、互いの癖も強調される。",
+比和:"支が同じ関係。気が重なって強まり、共鳴しやすい。",
+納音:"干が同じで支が冲する関係。似ているのに衝突しやすい、強い刺激の組み合わせ。",
+異常干支:"60干支のうち13種（通常異常干支6・暗合異常干支7）。感性や個性が突出する一方、条件が重なると「異常性」が表に出るとされる。日柱にある場合を重視し、月・年だけにある場合はあまり重視しない見方が多い。",
+通常異常干支:"甲戌・乙亥・戊戌・庚子・辛亥・丁巳の6つ。個性は強いが、暗合異常干支よりは異常性が穏やか。",
+暗合異常干支:"辛巳・壬午・丙戌・丁亥・戊子・癸巳・己亥の7つ。干支の中に隠れた暗合を持ち、通常異常干支より異常性（感性・霊感・極端さ）が強いとされる。",
+甲戌:"通常異常干支。平凡な結婚生活を送ると異常性が出やすく、男性に強く出る。独身・子なし・国際結婚など非凡な形だと出にくい。",
+庚子:"通常異常干支。過保護に育つと内臓など健康面に弱さが出やすい。大家族や寮生活など親元を離れて育つと出にくい。",
+辛亥:"通常異常干支。身体の形状に異常性が出やすい。手術やケガの傷が残りやすいので注意。",
+丁巳:"通常異常干支。13種の中で最も異常性が弱い。一代運があり、栄えた家系が低迷するという見方がある。",
+辛巳:"暗合異常干支。貧しい家庭で育つと異常性が出やすく、一流の環境に身を置くと出にくい。霊感が強い傾向。",
+壬午:"暗合異常干支。霊感と先見の明があり、視力に支障が出やすい。平凡な結婚生活だと異常性が出やすい。",
+丁亥:"暗合異常干支。60干支で最も霊感が強いとされ、予感・直感が鋭い。精神面に異常性が出やすく、周囲から変わり者に見られがち。",
+戊子:"暗合異常干支。気まぐれで気が変わりやすい。平均的な家庭だと礼儀を欠きやすく、逆境で育つと整う。金運が突出する。",
+己亥:"暗合異常干支。肉体的な感性が強く、危険を回避する力がある。霊感があり器用。",
+三業干支:"60干支のうち20個。先祖の業（因縁）の影響を受けるとされる干支で、年柱・月柱・日柱のどこにあっても影響し、日柱が最も強いとも言われる。本人に自覚がないことが多く、先祖供養で和らぐとされる。",
+不族の業:"甲子・甲辰。家系と結婚に問題が出やすい。家族がまとまりにくく、親兄弟と同居するとこじれやすい。結婚縁・子供縁が薄い。離れて暮らす、結婚後も仕事を続ける、非凡な結婚（国際・年の差など）で和らぐ。",
+祇王の業:"乙巳・乙酉。結婚に波乱が出やすい業。結婚しにくい、結婚・離婚を繰り返すなど。波乱を経ることで業が解消され、晩年は穏やかになる。",
+不信の業:"丙辰・丙戌。大事な時に信頼した人に裏切られやすい。裏切られると運が上がり、自分が裏切ると運が落ちる。",
+徳攻の業:"丁丑・丁未。人に好かれ頼られやすく、一人になれない。依存されやすく、尽くしても満たされにくい。受け身でいると運が上がる。",
+参籠の業:"戊辰・戊戌。人生の自由が得られにくい業。しがらみや制限があり、好きではない仕事をしやすい。受け身でいるほうが良い。",
+倒柱の業:"己巳・己酉。家や組織の柱を倒す業。栄えた家に生まれると没落させ、没落した家なら栄えさせるとされる。早く家を出るのが良く、女性は影響が小さいとも言われる。",
+傷体の業:"庚辰・庚戌。身体に傷を負いやすい（ケガ・病気）。傷つくと運が上がる面もある。先祖供養が特に大切とされる。",
+一人行の業:"辛丑・辛未。結婚で財運が上下する。独身だと良く、結婚で下がりやすい。男性は再婚のたびに上昇、女性は離婚後に独身を貫くほうが良い。",
+不子の業:"壬子・壬辰。子供との縁が薄い。子供が離れやすく、思い通りになりにくい。密着しない親子関係で和らぐ。",
+倒異の業:"癸酉・癸亥。異性を倒す業。周囲の異性に苦労をかけたり、踏み台にして成功しやすい。三業干支の中で最も深く強い業とされ、敬意と感謝が大切。",
+局法:"陽占（人体星図）の十大主星の並びから見る特殊な型で、幸運局と凶運局がある。多くの人が何かしらに当てはまる。凶運局は、中心星と隣り合う2星（縦=頭か腹、横=右手か左手）が相剋になる形で、葛藤を経て成長につながり、中和する星を意識すると陽転できる。三合会局・方三位とは別の技法。",
+推逆局:"縦線で水剋火（鳳閣・調舒×龍高・玉堂）。気性が激しく神経が鋭く、感情で判断しやすい。貫索・石門（自分の守り）を意識すると整う。",
+円推局:"横線で水剋火。推逆局と同じく神経質で感情的だが、それを現実で表に出せず悩みやすい。貫索・石門を意識。",
+生殺局:"縦線で火剋金（鳳閣・調舒×車騎・牽牛）。自由な表現の先でプライドが傷つき、本来の魅力を出しにくい。魅力が時期で変わりやすい。禄存・司禄（蓄積・愛情・奉仕）を意識。",
+殺局:"横線で火剋金。生殺局と同様に魅力を出しにくく、プライドと自由さの葛藤が内にこもって悩みやすい。禄存・司禄を意識。",
+井乱局:"縦線で金剋木（貫索・石門×車騎・牽牛）。自我や意志が剋され、見た目より繊細。厳しくされると折れやすく、褒めて育てるのが向く。龍高・玉堂（学び・体験）を意識。",
+乱命局:"横線で金剋木。名誉・評価が自分の世界を剋し、家庭・私生活と仕事がシーソーになりやすい。龍高・玉堂を意識。",
+破財局:"縦線で木剋土（貫索・石門×禄存・司禄）。お金を貯めても、自我に響くものに出会うと一気に使いがち。鳳閣・調舒（自然体で放出・表現）を意識。",
+曲財局:"横線で木剋土。現実面でお金の出入りが激しく、自我の変化が収支に直結する。投機運あり。鳳閣・調舒を意識。",
+地財局:"縦線で土剋水（禄存・司禄×龍高・玉堂）。蓄財が知性を濁らせ、物欲に傾くと人格を落としやすい。車騎・牽牛（名誉）を大切にすると救われる。",
+叉財局:"横線で土剋水。蓄財と知性・理性が葛藤して思い切れず、お金にこだわりやすい。車騎・牽牛を大切にすると救われる。",
+鳳蘭局:"十大主星5つがすべて同じ星。局法の中でも別格で、一代で名を残す創業者運。複雑な家庭で育ち早く自立するほど伸びる。配偶者運は崩れやすく、海外の人との結婚は吉とされる。",
+劫局:"5つの主星がすべて木性（貫索・石門）の準鳳蘭局。スケールが大きく社交的な策略家タイプで、海外・社長向き。合わない人や物は本能的に拒絶する。",
+食局:"5つの主星がすべて火性（鳳閣・調舒）の準鳳蘭局。神経と精神性が強く芸術家・学者向き。探究心と記憶力に優れ、お金には困りにくいが、悪く出ると怠けやすい。",
+財局:"5つの主星がすべて土性（禄存・司禄）の準鳳蘭局。人と異性に恵まれ、お金に縁がある。自然体でいると金運が良く、強欲になるほど離れる。",
+官局:"5つの主星がすべて金性（車騎・牽牛）の準鳳蘭局。働き者で行動力抜群。八相局で最も強い因縁を持ち、大義のために働くと力を発揮する。女性は結婚離婚を繰り返しやすい。",
+印局:"5つの主星がすべて水性（龍高・玉堂）の準鳳蘭局。知能が非常に高く、考え過ぎや秘密主義になりやすい。斬新な発想で新しい時代を開く人。故郷とは縁が薄い。",
+準八相局:"5つの主星のうち4つが同じ五行。八相局（5つ同五行）に準じる、偏りの強い個性として出る。",
+準々八相局:"5つの主星のうち3つが同じ五行。八相局に準じるが、現象は弱め。",
+芳順局:"縦線または横線が木性（貫索・石門）で揃う。幸運も不運も一代限りで後継者に恵まれにくい。身強なら政治力、身弱なら霊感が強い。",
+八寿局:"縦線または横線が火性（鳳閣・調舒）で揃う。良い子供に恵まれ家運を伸ばす。龍高星がなければ長寿。子がいなければ養子もよいとされる。",
+三麗局:"縦線または横線が土性（禄存・司禄）で揃う。財運が強く物持ちで、商才があり不動産など形で残す。現実主義が強いので精神性も大切に。",
+相法局:"縦線または横線が金性（車騎・牽牛）で揃う。損得抜きの働き者で、トップより補佐役向き。結婚は苦労が多めとされる。",
+玄流局:"縦線または横線が水性（龍高・玉堂）で揃う。知的探求心が旺盛で自由業向き。人の下で働くのは苦痛。原因不明の病気に注意。",
+劫法局:"縦線・横線ともに貫索星（または石門星）。芳順局の象意が強く出る。自分の子より他人の子や弟子を育てるのが向き、信念あるリーダー。配偶者運と子供運が連動する。",
+天華局:"縦線・横線ともに鳳閣星（または調舒星）。八寿局の象意が強く出る。家系の犠牲者と言われ、苦労が多いほど子孫が繁栄する。",
+連財局:"縦線・横線ともに禄存星（または司禄星）。三麗局の象意が強く出る。財運と人徳があり、男性は異性にもてる。他の凶相を和らげる。",
+法官局:"縦線・横線ともに車騎星（または牽牛星）。相法局の象意が強く出る。働き者で直情的。30歳までに転職・副業を重ねやすく、1つの専業では収まらない。",
+命龍局:"縦線・横線ともに龍高星（または玉堂星）。玄流局の象意が強く出る。深い洞察力と才能で、家系の気風を大きく変える人。"};
+document.addEventListener("click",e=>{const t=e.target.closest("[data-ex]");if(!t||!EX[t.dataset.ex])return;const b=t.closest(".card").querySelector(".exp"),k=t.dataset.ex;
+if(!b.hidden&&b.dataset.k==k){b.hidden=true;return}b.dataset.k=k;b.innerHTML=`<b>${k}</b>　${EX[k]}`;b.hidden=false;b.scrollIntoView({block:"nearest",behavior:"smooth"})});
+const pd=s=>{s=s.replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248)).trim();let m=s.match(/^(\d{4})\D*(\d{1,2})\D*(\d{1,2})$/);
+if(!m)return null;const y=+m[1],mo=+m[2],d=+m[3],t=new Date(Date.UTC(y,mo-1,d));return y>=1900&&y<=2100&&t.getUTCMonth()==mo-1&&t.getUTCDate()==d?[y,mo,d]:null};
+document.getElementById("go").onclick=()=>{
+const v=id=>document.getElementById(id).value,lb=(id,k)=>esc(v(id).trim())||k,o=document.getElementById("out"),da=pd(v("da")),bs=v("db").trim(),db=bs?pd(bs):null;
+if(!da||bs&&!db){o.innerHTML='<div class="card note">生年月日は 1999/5/28 または 19990528 の形式で入力してください（Bは空欄可）。</div>';return}
+try{localStorage.setItem("shukumei",JSON.stringify(Object.fromEntries(["na","da","ga","nb","db","gb"].map(i=>[i,v(i)]))))}catch(e){}
+const a=calc(...da,v("ga"));let h=pers(a,lb("na","A")+"様",!db);
+if(db){const b=calc(...db,v("gb"));h+=pers(b,lb("nb","B")+"様",false)+compat(a,b)}
+o.innerHTML=h;o.scrollIntoView({behavior:"smooth"})};
+
+try{const c=document.createElement("canvas");c.width=c.height=180;const x=c.getContext("2d");x.fillStyle="#b08d3c";x.fillRect(0,0,180,180);x.fillStyle="#fff";x.font="bold 110px sans-serif";x.textAlign="center";x.textBaseline="middle";x.fillText("命",90,98);
+const u=c.toDataURL("image/png"),l=document.createElement("link");l.rel="apple-touch-icon";l.href=u;document.head.appendChild(l);
+const m=document.createElement("link");m.rel="manifest";m.href=URL.createObjectURL(new Blob([JSON.stringify({name:"宿命算出",short_name:"宿命算出",display:"standalone",background_color:"#f7f6f3",theme_color:"#b08d3c",start_url:location.href,icons:[{src:u,sizes:"180x180",type:"image/png"}]})],{type:"application/manifest+json"}));document.head.appendChild(m)}catch(e){}
+try{const v=JSON.parse(localStorage.getItem("shukumei")||"{}");for(const id in v){const el=document.getElementById(id);if(el)el.value=v[id]}}catch(e){}
+</script></body></html>
